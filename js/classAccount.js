@@ -44,4 +44,16 @@ export default class Cuentas {
   set email(nuevoEmail) {
     this.#email = nuevoEmail;
   }
+
+  toJSON() {
+    return {
+      id: this.id,
+      nombre: this.nombre,
+      apellido: this.apellido,
+      email: this.email,
+      telefono: this.telefono,
+      notas: this.notas,
+      imagen: this.imagen,
+    };
+  }
 }
