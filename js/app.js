@@ -63,10 +63,14 @@ const dibujarFIla = (cuenta, indice) => {
               <td>${cuenta.email}</td>
               <td>
                 <button class="btn btn-warning">Editar</button>
-                <button class="btn btn-danger">Borrar</button>
+                <button class="btn btn-danger" onclick="eliminarCuenta()">Borrar</button>
                 <button class="btn btn-info">Ver</button>
               </td>
             </tr>`;
+};
+
+window.eliminarCuenta = () => {
+  
 };
 
 // Variables
