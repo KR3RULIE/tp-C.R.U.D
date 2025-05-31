@@ -26,6 +26,13 @@ const crearUsuario = () => {
   dibujarFIla(usuarioNuevo, cuentas.length);
   // limpiar el form
   limpiarFormulario();
+  // mostrar un mensaje al usuario cuando crea su cuenta
+  Swal.fire({
+    title: "Cuenta creada",
+    // text: `La cuenta ${cuentas.length} fue creada exitosamente`,
+    text: "Su cuenta fue creada exitosamente",
+    icon: "success",
+  });
 };
 
 const limpiarFormulario = () => {
