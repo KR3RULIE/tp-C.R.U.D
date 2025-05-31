@@ -22,6 +22,8 @@ const crearUsuario = () => {
   cuentas.push(usuarioNuevo);
   // guardar el array de cuentas en el local storage
   guardarLocalStorage();
+  // dibujar esta cuenta en la tabla
+  dibujarFIla(usuarioNuevo, cuentas.length);
   // limpiar el form
   limpiarFormulario();
 };
@@ -34,6 +36,32 @@ const guardarLocalStorage = () => {
   localStorage.setItem("keyCuenta", JSON.stringify(cuentas));
 };
 
+const cargarDatosEnLaTabla = () => {
+  // verificar si la tabla tiene datos
+  if (cuentas.length != 0) {
+    // dibujar una fila por cada contacto de la agenda
+    cuentas.map((cuenta, indice) => dibujarFIla(cuenta, indice + 1));
+  } else {
+    //TODO: si no hay datos en la agenda mostrar un mensaje para el usuario
+  }
+};
+
+const dibujarFIla = (cuenta, indice) => {
+  // agregar una fila (tr) nueva al tbody de la tabla de cuetnas
+  tablaCuetnas.innerHTML += `<tr>
+              <th scope="row">${indice}</th>
+              <td>${cuenta.idUsuario}</td>
+              <td>${cuenta.password}</td>
+              <td>${cuenta.repassword}</td>
+              <td>${cuenta.email}</td>
+              <td>
+                <button class="btn btn-warning">Editar</button>
+                <button class="btn btn-danger">Borrar</button>
+                <button class="btn btn-info">Ver</button>
+              </td>
+            </tr>`;
+};
+
 // Variables
 const btnRegistro = document.getElementById("btnRegistro");
 const formularioRegistro = document.querySelector("form");
@@ -42,6 +70,7 @@ const inputContraseña = document.querySelector("#contraseña");
 const inputReContraseña = document.querySelector("#recontraseña");
 const inputEmail = document.querySelector("#email");
 const cuentas = JSON.parse(localStorage.getItem("keyCuenta")) || [];
+const tablaCuetnas = document.querySelector("tbody");
 
 // Manejador de eventos
 btnRegistro.addEventListener("click", abrirModal);
@@ -50,3 +79,6 @@ formularioRegistro.addEventListener("submit", (e) => {
   // aqui voy a crear un usuario
   crearUsuario();
 });
+
+// Resto de la logica
+cargarDatosEnLaTabla();

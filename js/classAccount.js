@@ -48,12 +48,10 @@ export default class Cuentas {
   toJSON() {
     return {
       id: this.id,
-      nombre: this.nombre,
-      apellido: this.apellido,
+      idUsuario: this.idUsuario,
+      password: this.password,
+      repassword: this.repassword,
       email: this.email,
-      telefono: this.telefono,
-      notas: this.notas,
-      imagen: this.imagen,
     };
   }
 }
