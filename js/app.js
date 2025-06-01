@@ -63,14 +63,19 @@ const dibujarFIla = (cuenta, indice) => {
               <td>${cuenta.email}</td>
               <td>
                 <button class="btn btn-warning">Editar</button>
-                <button class="btn btn-danger" onclick="eliminarCuenta()">Borrar</button>
+                <button class="btn btn-danger" onclick="eliminarCuenta('${cuenta.id}')">Borrar</button>
                 <button class="btn btn-info">Ver</button>
               </td>
             </tr>`;
 };
 
-window.eliminarCuenta = () => {
-  
+window.eliminarCuenta = (id) => {
+  // buscar y borrar el contacto de la tabla de las cuentas
+  const positionAccount = cuentas.findIndex((cuenta) => cuenta.id === id);
+  cuentas.splice(positionAccount, 1);
+  // actualizar el local storage
+  guardarLocalStorage();
+  // actualizar la tabla de cuentas
 };
 
 // Variables
