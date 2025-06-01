@@ -76,6 +76,8 @@ window.eliminarCuenta = (id) => {
   // actualizar el local storage
   guardarLocalStorage();
   // actualizar la tabla de cuentas
+  tablaCuetnas.children[positionAccount].remove();
+  //TODO: corregir las celdas de la tabla cuando borramos un contacto
 };
 
 // Variables
