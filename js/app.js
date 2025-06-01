@@ -6,6 +6,8 @@ const abrirModal = () => {
   );
   // Aqui abro la ventana modal
   modalContacto.show();
+  // cambie la variable para que cree una cuenta
+  creandoCuenta = true;
 };
 
 const crearUsuario = () => {
@@ -90,6 +92,25 @@ window.prepararCuenta = (id) => {
   inputEmail.value = cuentaBuscada.email;
   // abrir el modal
   abrirModal();
+  // guardo el id del contacto que quiero editar
+  idCuentaEditar = id;
+  creandoCuenta = false;
+};
+
+const editarCuenta = () => {
+  console.log("Esta funcion edita una cuenta");
+  // agarrar los datos del formulario y actualizarlo dentro del array cuentas
+  const positionAccount = cuentas.findIndex(
+    (cuenta) => cuenta.id === idCuentaEditar
+  );
+  cuentas[positionAccount].idUsuario = inputIDCuenta.value;
+  cuentas[positionAccount].password = inputContraseña.value;
+  cuentas[positionAccount].repassword = inputReContraseña.value;
+  cuentas[positionAccount].email = inputEmail.value;
+  // actualizar el localstorage
+  guardarLocalStorage();
+  // actualizar la tabla de cuentas
+  // agregar un mensaje al usuario
 };
 
 // Variables
@@ -101,13 +122,20 @@ const inputReContraseña = document.querySelector("#recontraseña");
 const inputEmail = document.querySelector("#email");
 const cuentas = JSON.parse(localStorage.getItem("keyCuenta")) || [];
 const tablaCuetnas = document.querySelector("tbody");
+let idCuentaEditar = null;
+let creandoCuenta = true;
 
 // Manejador de eventos
 btnRegistro.addEventListener("click", abrirModal);
 formularioRegistro.addEventListener("submit", (e) => {
   e.preventDefault();
-  // aqui voy a crear un usuario
-  crearUsuario();
+  if (creandoCuenta) {
+    // aqui voy a crear un usuario
+    crearUsuario();
+  } else {
+    // algun dia aqui voy a editar una cuenta
+    editarCuenta();
+  }
 });
 
 // Resto de la logica
