@@ -62,7 +62,7 @@ const dibujarFIla = (cuenta, indice) => {
               <td>${cuenta.repassword}</td>
               <td>${cuenta.email}</td>
               <td>
-                <button class="btn btn-warning">Editar</button>
+                <button class="btn btn-warning" onclick="prepararCuenta('${cuenta.id}')">Editar</button>
                 <button class="btn btn-danger" onclick="eliminarCuenta('${cuenta.id}')">Borrar</button>
                 <button class="btn btn-info">Ver</button>
               </td>
@@ -77,7 +77,19 @@ window.eliminarCuenta = (id) => {
   guardarLocalStorage();
   // actualizar la tabla de cuentas
   tablaCuetnas.children[positionAccount].remove();
-  //TODO: corregir las celdas de la tabla cuando borramos un contacto
+  //TODO: corregir las celdas de la tabla cuando borramos una cuenta
+  cuentas.children[0] = id;
+};
+
+window.prepararCuenta = (id) => {
+  // cargar datos en el modal
+  const cuentaBuscada = cuentas.find((cuenta) => cuenta.id === id);
+  inputIDCuenta.value = cuentaBuscada.idUsuario;
+  inputContraseña.value = cuentaBuscada.password;
+  inputReContraseña.value = cuentaBuscada.repassword;
+  inputEmail.value = cuentaBuscada.email;
+  // abrir el modal
+  abrirModal();
 };
 
 // Variables
