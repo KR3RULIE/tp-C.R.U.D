@@ -24,6 +24,15 @@ const crearUsuario = () => {
   cuentas.push(usuarioNuevo);
   // guardar el array de cuentas en el local storage
   guardarLocalStorage();
+  // Eliminar el mensaje si existe
+  if (
+    tablaCuentas.children.length === 1 &&
+    tablaCuentas.children[0].textContent.indexOf(
+      "No hay cuentas registradas."
+    ) !== -1
+  ) {
+    tablaCuentas.innerHTML = "";
+  }
   // dibujar esta cuenta en la tabla
   dibujarFIla(usuarioNuevo, cuentas.length);
   // limpiar el form
@@ -51,13 +60,16 @@ const cargarDatosEnLaTabla = () => {
     // dibujar una fila por cada contacto de la agenda
     cuentas.map((cuenta, indice) => dibujarFIla(cuenta, indice + 1));
   } else {
-    //TODO: si no hay datos en la agenda mostrar un mensaje para el usuario
+    // si no hay datos, podrías mostrar una fila que diga "No hay cuentas registradas"
+    tablaCuentas.innerHTML = `<tr>
+      <td colspan="6" class="text-center text-muted">No hay cuentas registradas.</td>
+    </tr>`;
   }
 };
 
 const dibujarFIla = (cuenta, indice) => {
   // agregar una fila (tr) nueva al tbody de la tabla de cuetnas
-  tablaCuetnas.innerHTML += `<tr>
+  tablaCuentas.innerHTML += `<tr>
               <th scope="row">${indice}</th>
               <td>${cuenta.idUsuario}</td>
               <td>${cuenta.password}</td>
@@ -78,9 +90,24 @@ window.eliminarCuenta = (id) => {
   // actualizar el local storage
   guardarLocalStorage();
   // actualizar la tabla de cuentas
-  tablaCuetnas.children[positionAccount].remove();
+  tablaCuentas.children[positionAccount].remove();
   //TODO: corregir las celdas de la tabla cuando borramos una cuenta
-  cuentas.children[0] = id;
+  for (let i = positionAccount; i < tablaCuentas.children.length; i++) {
+    const fila = tablaCuentas.children[i];
+    fila.querySelector("th").textContent = i + 1;
+  }
+  // verifica si ya no hay usuarios en la tabla, si no lo hay, muestro un mensaje
+  if (cuentas.length === 0) {
+    tablaCuentas.innerHTML = `<tr>
+      <td colspan="6" class="text-center text-muted">No hay cuentas registradas.</td>
+    </tr>`;
+  }
+  // mensaje para que el usuario sepa que se elimino la cuenta
+  Swal.fire({
+    title: "Cuenta eliminada",
+    text: "La cuenta fue eliminada correctamente",
+    icon: "success",
+  });
 };
 
 window.prepararCuenta = (id) => {
@@ -109,6 +136,8 @@ const editarCuenta = () => {
   cuentas[positionAccount].email = inputEmail.value;
   // actualizar el localstorage
   guardarLocalStorage();
+  // limpiar el formulario
+  // cerrar el modal
   // actualizar la tabla de cuentas
   // agregar un mensaje al usuario
 };
@@ -121,7 +150,7 @@ const inputContraseña = document.querySelector("#contraseña");
 const inputReContraseña = document.querySelector("#recontraseña");
 const inputEmail = document.querySelector("#email");
 const cuentas = JSON.parse(localStorage.getItem("keyCuenta")) || [];
-const tablaCuetnas = document.querySelector("tbody");
+const tablaCuentas = document.querySelector("tbody");
 let idCuentaEditar = null;
 let creandoCuenta = true;
 
