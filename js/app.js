@@ -1,13 +1,14 @@
 import Cuentas from "./classAccount.js";
 // Funciones
 const abrirModal = () => {
-  const modalContacto = new bootstrap.Modal(
-    document.getElementById("modalRegistro")
-  );
   // Aqui abro la ventana modal
   modalContacto.show();
   // cambie la variable para que cree una cuenta
   creandoCuenta = true;
+};
+
+const cerrarModal = () => {
+  modalContacto.hide();
 };
 
 const crearUsuario = () => {
@@ -84,29 +85,42 @@ const dibujarFIla = (cuenta, indice) => {
 };
 
 window.eliminarCuenta = (id) => {
-  // buscar y borrar el contacto de la tabla de las cuentas
-  const positionAccount = cuentas.findIndex((cuenta) => cuenta.id === id);
-  cuentas.splice(positionAccount, 1);
-  // actualizar el local storage
-  guardarLocalStorage();
-  // actualizar la tabla de cuentas
-  tablaCuentas.children[positionAccount].remove();
-  //TODO: corregir las celdas de la tabla cuando borramos una cuenta
-  for (let i = positionAccount; i < tablaCuentas.children.length; i++) {
-    const fila = tablaCuentas.children[i];
-    fila.querySelector("th").textContent = i + 1;
-  }
-  // verifica si ya no hay usuarios en la tabla, si no lo hay, muestro un mensaje
-  if (cuentas.length === 0) {
-    tablaCuentas.innerHTML = `<tr>
-      <td colspan="6" class="text-center text-muted">No hay cuentas registradas.</td>
-    </tr>`;
-  }
-  // mensaje para que el usuario sepa que se elimino la cuenta
   Swal.fire({
-    title: "Cuenta eliminada",
-    text: "La cuenta fue eliminada correctamente",
-    icon: "success",
+    title: "Estas seguro/a?",
+    text: "No podrás revertir esto!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sí, eliminar!",
+    cancelButtonText: "No, cancelar!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // buscar y borrar el contacto de la tabla de las cuentas
+      const positionAccount = cuentas.findIndex((cuenta) => cuenta.id === id);
+      cuentas.splice(positionAccount, 1);
+      // actualizar el local storage
+      guardarLocalStorage();
+      // actualizar la tabla de cuentas
+      tablaCuentas.children[positionAccount].remove();
+      //TODO: corregir las celdas de la tabla cuando borramos una cuenta
+      for (let i = positionAccount; i < tablaCuentas.children.length; i++) {
+        const fila = tablaCuentas.children[i];
+        fila.querySelector("th").textContent = i + 1;
+      }
+      // verifica si ya no hay usuarios en la tabla, si no lo hay, muestro un mensaje
+      if (cuentas.length === 0) {
+        tablaCuentas.innerHTML = `<tr>
+      <td colspan="6" class="text-center text-muted">No hay cuentas registradas.</td>
+      </tr>`;
+      }
+      // mensaje para que el usuario sepa que se elimino la cuenta
+      Swal.fire({
+        title: "Cuenta eliminada",
+        text: "La cuenta fue eliminada correctamente",
+        icon: "success",
+      });
+    }
   });
 };
 
@@ -137,9 +151,17 @@ const editarCuenta = () => {
   // actualizar el localstorage
   guardarLocalStorage();
   // limpiar el formulario
+  limpiarFormulario();
   // cerrar el modal
+  cerrarModal();
   // actualizar la tabla de cuentas
+
   // agregar un mensaje al usuario
+  Swal.fire({
+    title: "Cuenta actualizada",
+    text: "Los datos de la cuenta se an actualizado correctamente",
+    icon: "success",
+  });
 };
 
 // Variables
@@ -153,6 +175,9 @@ const cuentas = JSON.parse(localStorage.getItem("keyCuenta")) || [];
 const tablaCuentas = document.querySelector("tbody");
 let idCuentaEditar = null;
 let creandoCuenta = true;
+const modalContacto = new bootstrap.Modal(
+  document.getElementById("modalRegistro")
+);
 
 // Manejador de eventos
 btnRegistro.addEventListener("click", abrirModal);
