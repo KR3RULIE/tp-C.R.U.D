@@ -5,13 +5,20 @@ const abrirModal = () => {
   modalContacto.show();
   // cambie la variable para que cree una cuenta
   creandoCuenta = true;
-};
-
-const cerrarModal = () => {
-  modalContacto.hide();
+  // devolvemos el boton submit y el titulo del modal a "registrar"
 };
 
 const crearUsuario = () => {
+  // Validar que las contraseñas coincidan
+  if (inputContraseña.value !== inputReContraseña.value) {
+    Swal.fire({
+      title: "Error",
+      text: "Las contraseñas no coinciden. Por favor, verifíquelas.",
+      icon: "error",
+    });
+    return; // Salir de la función si no coinciden
+  }
+
   //TODO: tomar los datos del formulario
 
   // con los datos voy a crear un objeto usuario
@@ -125,6 +132,10 @@ window.eliminarCuenta = (id) => {
 };
 
 window.prepararCuenta = (id) => {
+  // modificar el titilo y el boton registrar el modal
+  creandoCuenta = false;
+  btnSubmit.textContent = "Actualizar";
+  tituloDelModal.textContent = "Datos de la cuenta.";
   // cargar datos en el modal
   const cuentaBuscada = cuentas.find((cuenta) => cuenta.id === id);
   inputIDCuenta.value = cuentaBuscada.idUsuario;
@@ -139,7 +150,16 @@ window.prepararCuenta = (id) => {
 };
 
 const editarCuenta = () => {
-  console.log("Esta funcion edita una cuenta");
+  // Validar que las contraseñas coincidan
+  if (inputContraseña.value !== inputReContraseña.value) {
+    Swal.fire({
+      title: "Error",
+      text: "Las contraseñas no coinciden. Por favor, verifíquelas.",
+      icon: "error",
+    });
+    return; // Salir de la función si no coinciden
+  }
+
   // agarrar los datos del formulario y actualizarlo dentro del array cuentas
   const positionAccount = cuentas.findIndex(
     (cuenta) => cuenta.id === idCuentaEditar
@@ -153,13 +173,19 @@ const editarCuenta = () => {
   // limpiar el formulario
   limpiarFormulario();
   // cerrar el modal
-  cerrarModal();
+  modalContacto.hide();
   // actualizar la tabla de cuentas
-
+  const filaEditada = tablaCuentas.children[positionAccount];
+  if (filaEditada) {
+    filaEditada.children[1].textContent = cuentas[positionAccount].idUsuario;
+    filaEditada.children[2].textContent = cuentas[positionAccount].password;
+    filaEditada.children[3].textContent = cuentas[positionAccount].repassword;
+    filaEditada.children[4].textContent = cuentas[positionAccount].email;
+  }
   // agregar un mensaje al usuario
   Swal.fire({
     title: "Cuenta actualizada",
-    text: "Los datos de la cuenta se an actualizado correctamente",
+    text: "Los datos se actualizaron correctamente.",
     icon: "success",
   });
 };
@@ -173,6 +199,8 @@ const inputReContraseña = document.querySelector("#recontraseña");
 const inputEmail = document.querySelector("#email");
 const cuentas = JSON.parse(localStorage.getItem("keyCuenta")) || [];
 const tablaCuentas = document.querySelector("tbody");
+const btnSubmit = document.getElementById("btnSubmit");
+const tituloDelModal = document.getElementById("modalContactoLabel");
 let idCuentaEditar = null;
 let creandoCuenta = true;
 const modalContacto = new bootstrap.Modal(
@@ -180,7 +208,13 @@ const modalContacto = new bootstrap.Modal(
 );
 
 // Manejador de eventos
-btnRegistro.addEventListener("click", abrirModal);
+btnRegistro.addEventListener("click", () => {
+  creandoCuenta = true;
+  btnSubmit.textContent = "Registrar";
+  tituloDelModal.textContent = "Registro";
+  abrirModal();
+  limpiarFormulario();
+});
 formularioRegistro.addEventListener("submit", (e) => {
   e.preventDefault();
   if (creandoCuenta) {
