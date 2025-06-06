@@ -88,7 +88,7 @@ const dibujarFIla = (cuenta, indice) => {
               <td>
                 <button class="btn btn-warning" onclick="prepararCuenta('${cuenta.id}')">Editar</button>
                 <button class="btn btn-danger" onclick="eliminarCuenta('${cuenta.id}')">Borrar</button>
-                <button class="btn btn-info">Ver</button>
+                <button class="btn btn-info" onclick="verCuenta('${cuenta.id}')">Ver</button>
               </td>
             </tr>`;
 };
@@ -153,6 +153,10 @@ window.prepararCuenta = (id) => {
   // guardo el id del contacto que quiero editar
   idCuentaEditar = id;
   creandoCuenta = false;
+};
+
+window.verCuenta = (id) => {
+  window.location.href = `./pages/detalleCuenta.html?cod=${id}`;
 };
 
 const editarCuenta = () => {
