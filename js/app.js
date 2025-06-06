@@ -26,7 +26,8 @@ const crearUsuario = () => {
     inputIDCuenta.value,
     inputContraseña.value,
     inputReContraseña.value,
-    inputEmail.value
+    inputEmail.value,
+    inputChar.value
   );
   // guardar el usuario en un array
   cuentas.push(usuarioNuevo);
@@ -83,6 +84,7 @@ const dibujarFIla = (cuenta, indice) => {
               <td>${cuenta.password}</td>
               <td>${cuenta.repassword}</td>
               <td>${cuenta.email}</td>
+              <td>${cuenta.char}</td>
               <td>
                 <button class="btn btn-warning" onclick="prepararCuenta('${cuenta.id}')">Editar</button>
                 <button class="btn btn-danger" onclick="eliminarCuenta('${cuenta.id}')">Borrar</button>
@@ -142,8 +144,12 @@ window.prepararCuenta = (id) => {
   inputContraseña.value = cuentaBuscada.password;
   inputReContraseña.value = cuentaBuscada.repassword;
   inputEmail.value = cuentaBuscada.email;
+  inputChar.value = cuentaBuscada.char;
   // abrir el modal
   abrirModal();
+  // eliminamos la opcion "-- Seleccione --" del campo personajes cuando abrimos el editar
+  const selectChar = document.getElementById("char");
+  selectChar.children[0].classList.add("d-none");
   // guardo el id del contacto que quiero editar
   idCuentaEditar = id;
   creandoCuenta = false;
@@ -168,6 +174,7 @@ const editarCuenta = () => {
   cuentas[positionAccount].password = inputContraseña.value;
   cuentas[positionAccount].repassword = inputReContraseña.value;
   cuentas[positionAccount].email = inputEmail.value;
+  cuentas[positionAccount].char = inputChar.value;
   // actualizar el localstorage
   guardarLocalStorage();
   // limpiar el formulario
@@ -181,6 +188,7 @@ const editarCuenta = () => {
     filaEditada.children[2].textContent = cuentas[positionAccount].password;
     filaEditada.children[3].textContent = cuentas[positionAccount].repassword;
     filaEditada.children[4].textContent = cuentas[positionAccount].email;
+    filaEditada.children[5].textContent = cuentas[positionAccount].char;
   }
   // agregar un mensaje al usuario
   Swal.fire({
@@ -197,6 +205,7 @@ const inputIDCuenta = document.querySelector("#idcuenta");
 const inputContraseña = document.querySelector("#contraseña");
 const inputReContraseña = document.querySelector("#recontraseña");
 const inputEmail = document.querySelector("#email");
+const inputChar = document.querySelector("#char");
 const cuentas = JSON.parse(localStorage.getItem("keyCuenta")) || [];
 const tablaCuentas = document.querySelector("tbody");
 const btnSubmit = document.getElementById("btnSubmit");

@@ -4,12 +4,14 @@ export default class Cuentas {
   #password;
   #repassword;
   #email;
-  constructor(idUsuario, password, repassword, email) {
+  #char;
+  constructor(idUsuario, password, repassword, email, char) {
     this.#id = crypto.randomUUID();
     this.#idUsuario = idUsuario;
     this.#password = password;
     this.#repassword = repassword;
     this.#email = email;
+    this.#char = char;
   }
   // getters
   get id() {
@@ -26,6 +28,9 @@ export default class Cuentas {
   }
   get email() {
     return this.#email;
+  }
+  get char() {
+    return this.#char;
   }
 
   // setters
@@ -44,6 +49,9 @@ export default class Cuentas {
   set email(nuevoEmail) {
     this.#email = nuevoEmail;
   }
+  set char(nuevoChar) {
+    this.#char = nuevoChar;
+  }
 
   toJSON() {
     return {
@@ -52,6 +60,7 @@ export default class Cuentas {
       password: this.password,
       repassword: this.repassword,
       email: this.email,
+      char: this.char,
     };
   }
 }

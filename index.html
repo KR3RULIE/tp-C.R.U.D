@@ -40,6 +40,7 @@
               <th scope="col">Contraseña</th>
               <th scope="col">Repetir contraseña</th>
               <th scope="col">Email</th>
+              <th scope="col">Personaje favorito</th>
               <th scope="col">Acciones</th>
             </tr>
           </thead>
@@ -68,8 +69,12 @@
           </div>
           <div class="modal-body">
             <form class="text-start">
+              <small class="text-muted">
+                Los campos marcados con (<span class="text-danger">*</span>) son
+                obligatorios.
+              </small>
               <div class="mb-3">
-                <label for="idcuenta" class="form-label">ID Cuenta*</label>
+                <label for="idcuenta" class="form-label">ID Cuenta *</label>
                 <input
                   type="text"
                   class="form-control"
@@ -77,12 +82,12 @@
                   aria-describedby="Ingresar nombre"
                   minlength="2"
                   maxlength="50"
-                  placeholder="Ej: Juan"
+                  placeholder="Ruli15"
                   required
                 />
               </div>
               <div class="mb-3">
-                <label for="contraseña" class="form-label">Contraseña*</label>
+                <label for="contraseña" class="form-label">Contraseña *</label>
                 <input
                   type="password"
                   class="form-control"
@@ -90,13 +95,13 @@
                   aria-describedby="Ingresar nombre"
                   minlength="2"
                   maxlength="50"
-                  placeholder="Ej: J#41g2$5a.57k"
+                  placeholder="J#41g2$5a.57k"
                   required
                 />
               </div>
               <div class="mb-3">
                 <label for="recontraseña" class="form-label"
-                  >Repetir contraseña*</label
+                  >Repetir contraseña *</label
                 >
                 <input
                   type="password"
@@ -105,21 +110,36 @@
                   aria-describedby="Ingresar nombre"
                   minlength="2"
                   maxlength="50"
-                  placeholder="Ej: J#41g2$5a.57k"
+                  placeholder="J#41g2$5a.57k"
                   required
                 />
               </div>
               <div class="mb-3">
-                <label for="email" class="form-label">Email*</label>
+                <label for="email" class="form-label">Email *</label>
                 <input
                   type="email"
                   class="form-control"
                   id="email"
-                  placeholder="Ej: juanperez@mail.com"
+                  placeholder="ejemplo@gmail.com"
                   required
                 />
               </div>
-              <button type="submit" id="btnSubmit" class="btn btn-primary"></button>
+              <div class="mb-3">
+                <label for="text" class="form-label">¿Char favorito? *</label>
+                <select id="char" name="char" class="form-select">
+                  <option value="">-- Selecciona --</option>
+                  <option value="Blade Knight">Blade Knight</option>
+                  <option value="Soul Master">Soul Master</option>
+                  <option value="Muse Elf">Muse Elf</option>
+                  <option value="Magic Gladiator">Magic Gladiator</option>
+                  <!-- Agrega más países aquí -->
+                </select>
+              </div>
+              <button
+                type="submit"
+                id="btnSubmit"
+                class="btn btn-primary"
+              ></button>
             </form>
           </div>
         </div>
