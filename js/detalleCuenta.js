@@ -41,7 +41,7 @@ const alt = () => {
       // no es necesario poner algo aqui, esta diseñado para que no falle nunca.
       break;
   }
-  return rutaImagen;
+  return altImagen;
 };
 
 const parametroUrl = new URLSearchParams(window.location.search);

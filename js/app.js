@@ -9,59 +9,61 @@ const abrirModal = () => {
 };
 
 const crearUsuario = () => {
-  // Validar que las contraseñas coincidan
-  if (inputContraseña.value !== inputReContraseña.value) {
-    Swal.fire({
-      title: "Error",
-      text: "Las contraseñas no coinciden. Por favor, verifíquelas.",
-      icon: "error",
-    });
-    return; // Salir de la función si no coinciden
-  }
-
-  if (inputChar.value === "") {
-    Swal.fire({
-      title: "¡Atención!",
-      text: "Olvidaste seleecionar tu personaje favorito",
-      icon: "warning",
-    });
-    return; // Salir de la función si no coinciden
-  }
-
   //TODO: tomar los datos del formulario
-
-  // con los datos voy a crear un objeto usuario
-  const usuarioNuevo = new Cuentas(
-    inputIDCuenta.value,
-    inputContraseña.value,
-    inputReContraseña.value,
-    inputEmail.value,
-    inputChar.value
-  );
-  // guardar el usuario en un array
-  cuentas.push(usuarioNuevo);
-  // guardar el array de cuentas en el local storage
-  guardarLocalStorage();
-  // Eliminar el mensaje si existe
-  if (
-    tablaCuentas.children.length === 1 &&
-    tablaCuentas.children[0].textContent.indexOf(
-      "No hay cuentas registradas."
-    ) !== -1
-  ) {
-    tablaCuentas.innerHTML = "";
+  if (validaciones()) {
+    // Validar que las contraseñas coincidan
+    if (inputContraseña.value !== inputReContraseña.value) {
+      inputReContraseña.classList.add("is-invalid");
+      inputReContraseña.classList.remove("is-valid");
+      Swal.fire({
+        title: "Error",
+        text: "Las contraseñas no coinciden. Por favor, verifíquelas.",
+        icon: "error",
+      });
+      return; // Salir de la función si no coinciden
+    }
+    // obligar al usuario a elegir un char favorito
+    if (inputChar.value === "") {
+      Swal.fire({
+        title: "¡Atención!",
+        text: "Olvidaste seleecionar tu personaje favorito",
+        icon: "warning",
+      });
+      return; // Salir de la función si no coinciden
+    }
+    // con los datos voy a crear un objeto usuario
+    const usuarioNuevo = new Cuentas(
+      inputIDCuenta.value,
+      inputContraseña.value,
+      inputReContraseña.value,
+      inputEmail.value,
+      inputChar.value
+    );
+    // guardar el usuario en un array
+    cuentas.push(usuarioNuevo);
+    // guardar el array de cuentas en el local storage
+    guardarLocalStorage();
+    // Eliminar el mensaje si existe
+    if (
+      tablaCuentas.children.length === 1 &&
+      tablaCuentas.children[0].textContent.indexOf(
+        "No hay cuentas registradas."
+      ) !== -1
+    ) {
+      tablaCuentas.innerHTML = "";
+    }
+    // dibujar esta cuenta en la tabla
+    dibujarFIla(usuarioNuevo, cuentas.length);
+    // limpiar el form
+    limpiarFormulario();
+    // mostrar un mensaje al usuario cuando crea su cuenta
+    Swal.fire({
+      title: "Cuenta creada",
+      // text: `La cuenta ${cuentas.length} fue creada exitosamente`,
+      text: "Su cuenta fue creada exitosamente",
+      icon: "success",
+    });
   }
-  // dibujar esta cuenta en la tabla
-  dibujarFIla(usuarioNuevo, cuentas.length);
-  // limpiar el form
-  limpiarFormulario();
-  // mostrar un mensaje al usuario cuando crea su cuenta
-  Swal.fire({
-    title: "Cuenta creada",
-    // text: `La cuenta ${cuentas.length} fue creada exitosamente`,
-    text: "Su cuenta fue creada exitosamente",
-    icon: "success",
-  });
 };
 
 const limpiarFormulario = () => {
@@ -174,46 +176,50 @@ window.verCuenta = (id) => {
 };
 
 const editarCuenta = () => {
-  // Validar que las contraseñas coincidan
-  if (inputContraseña.value !== inputReContraseña.value) {
-    Swal.fire({
-      title: "Error",
-      text: "Las contraseñas no coinciden. Por favor, verifíquelas.",
-      icon: "error",
-    });
-    return; // Salir de la función si no coinciden
-  }
+  if (validaciones()) {
+    // Validar que las contraseñas coincidan
+    if (inputContraseña.value !== inputReContraseña.value) {
+      inputReContraseña.classList.add("is-invalid");
+      inputReContraseña.classList.remove("is-valid");
+      Swal.fire({
+        title: "Error",
+        text: "Las contraseñas no coinciden. Por favor, verifíquelas.",
+        icon: "error",
+      });
+      return; // Salir de la función si no coinciden
+    }
 
-  // agarrar los datos del formulario y actualizarlo dentro del array cuentas
-  const positionAccount = cuentas.findIndex(
-    (cuenta) => cuenta.id === idCuentaEditar
-  );
-  cuentas[positionAccount].idUsuario = inputIDCuenta.value;
-  cuentas[positionAccount].password = inputContraseña.value;
-  cuentas[positionAccount].repassword = inputReContraseña.value;
-  cuentas[positionAccount].email = inputEmail.value;
-  cuentas[positionAccount].char = inputChar.value;
-  // actualizar el localstorage
-  guardarLocalStorage();
-  // limpiar el formulario
-  limpiarFormulario();
-  // cerrar el modal
-  modalContacto.hide();
-  // actualizar la tabla de cuentas
-  const filaEditada = tablaCuentas.children[positionAccount];
-  if (filaEditada) {
-    filaEditada.children[1].textContent = cuentas[positionAccount].idUsuario;
-    filaEditada.children[2].textContent = cuentas[positionAccount].password;
-    filaEditada.children[3].textContent = cuentas[positionAccount].repassword;
-    filaEditada.children[4].textContent = cuentas[positionAccount].email;
-    filaEditada.children[5].textContent = cuentas[positionAccount].char;
+    // agarrar los datos del formulario y actualizarlo dentro del array cuentas
+    const positionAccount = cuentas.findIndex(
+      (cuenta) => cuenta.id === idCuentaEditar
+    );
+    cuentas[positionAccount].idUsuario = inputIDCuenta.value;
+    cuentas[positionAccount].password = inputContraseña.value;
+    cuentas[positionAccount].repassword = inputReContraseña.value;
+    cuentas[positionAccount].email = inputEmail.value;
+    cuentas[positionAccount].char = inputChar.value;
+    // actualizar el localstorage
+    guardarLocalStorage();
+    // limpiar el formulario
+    limpiarFormulario();
+    // cerrar el modal
+    modalContacto.hide();
+    // actualizar la tabla de cuentas
+    const filaEditada = tablaCuentas.children[positionAccount];
+    if (filaEditada) {
+      filaEditada.children[1].textContent = cuentas[positionAccount].idUsuario;
+      filaEditada.children[2].textContent = cuentas[positionAccount].password;
+      filaEditada.children[3].textContent = cuentas[positionAccount].repassword;
+      filaEditada.children[4].textContent = cuentas[positionAccount].email;
+      filaEditada.children[5].textContent = cuentas[positionAccount].char;
+    }
+    // agregar un mensaje al usuario
+    Swal.fire({
+      title: "Cuenta actualizada",
+      text: "Los datos se actualizaron correctamente.",
+      icon: "success",
+    });
   }
-  // agregar un mensaje al usuario
-  Swal.fire({
-    title: "Cuenta actualizada",
-    text: "Los datos se actualizaron correctamente.",
-    icon: "success",
-  });
 };
 
 // funciones de validacion
@@ -243,18 +249,21 @@ function validarEmail() {
 }
 function validaciones() {
   let datosValidos = true;
-  if (!validarCantidadCaracteres(inputIDCuenta, 2, 50)) {
+  if (!validarCantidadCaracteres(inputIDCuenta, 6, 16)) {
     datosValidos = false;
   }
 
-  if (!validarCantidadCaracteres(inputContraseña, 2, 50)) {
+  if (!validarCantidadCaracteres(inputContraseña, 8, 16)) {
     datosValidos = false;
   }
 
-  if (!validarCantidadCaracteres(inputReContraseña, 2, 50)) {
+  if (!validarCantidadCaracteres(inputReContraseña, 8, 16)) {
     datosValidos = false;
   }
 
+  if (!validarEmail()) {
+    datosValidos = false;
+  }
   return datosValidos;
 }
 
