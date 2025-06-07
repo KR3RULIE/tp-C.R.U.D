@@ -15,10 +15,32 @@ const foto = () => {
       rutaImagen = "../img/magic_gladiator.jpg";
       break;
     default:
-        // no es necesario poner algo aqui, esta diseñado para que no falle nunca.
+      // no es necesario poner algo aqui, esta diseñado para que no falle nunca.
       break;
   }
 
+  return rutaImagen;
+};
+
+const alt = () => {
+  let altImagen = "";
+  switch (cuentaBuscado.char) {
+    case "Blade Knight":
+      altImagen = "Es el personaje Blade Knight de Mu Online";
+      break;
+    case "Soul Master":
+      altImagen = "Es el personaje Soul Master de Mu Online";
+      break;
+    case "Muse Elf":
+      altImagen = "Es el personaje Mouse Elf de Mu Online";
+      break;
+    case "Magic Gladiator":
+      altImagen = "Es el personaje Magic Gladiator de Mu Online";
+      break;
+    default:
+      // no es necesario poner algo aqui, esta diseñado para que no falle nunca.
+      break;
+  }
   return rutaImagen;
 };
 
@@ -37,7 +59,7 @@ card.innerHTML = `<div class="row g-0">
                 <img
                   src="${foto()}"
                   class="img-fluid rounded-start"
-                  alt=""
+                  alt="${alt()}"
                 />
               </div>
               <div class="col-md-8">
