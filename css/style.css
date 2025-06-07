@@ -22,7 +22,7 @@ table thead tr th {
   background-color: rgba(0, 0, 0, 0.3) !important;
 }
 header {
-  background-color: rgba(0, 0, 0, 0.1) !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
 }
 footer {
   background-color: rgba(0, 0, 0, 0.8) !important;
@@ -38,15 +38,17 @@ footer {
   z-index: -1;
 }
 
-header,
 nav,
-main,
-footer,
-.modal-content {
+main {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
 .tamanio {
   height: 40px;
   width: auto;
+}
+
+.card {
+  background-color: rgba(0, 0, 0, 0.1) !important;
+  border: none; /* Opcional: si no quieres el borde */
 }
