@@ -22,7 +22,7 @@ Este proyecto es una aplicación web desarrollada en **JavaScript**, que impleme
 1. Clona o descarga este repositorio.
 
 ```bash
-git clone https://github.com/KR3RULIE/
+git clone https://github.com/KR3RULIE/tp-C.R.U.D
 ```
 
 2. Abre el archivo `index.html` en tu navegador.
