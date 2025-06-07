@@ -21,15 +21,80 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./css/style.css" />
-    <link rel="shortcut icon" href="favicon.ico?v=2" type="image/x-icon">
+    <link rel="shortcut icon" href="favicon.ico?v=2" type="image/x-icon" />
   </head>
   <body class="text-center">
+    <img src="./img/fondoIndex.webp" alt="Fondo navbar" class="bg-img" />
     <header>
-      <h1 class="mt-5 text-warning">Cuentas de usuarios</h1>
+      <nav class="navbar navbar-expand-lg">
+        <div class="container">
+          <a class="navbar-brand" href="#">Mu Online</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link" aria-current="page" href="#">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Reglas</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Registrar</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Iniciar sesión</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle active"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Menu Admin
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Editar set</a></li>
+                  <li><a class="dropdown-item" href="#">Editar armas</a></li>
+                  <li>
+                    <a class="dropdown-item" href="#">Gestionar cuentas</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="d-flex gap-2 align-items-center nav-item">
+                <img
+                  src="./img/admin.png"
+                  alt="Logo admin"
+                  class="img-fluid tamanio"
+                />
+                <p class="my-auto">Usuario: Admin</p>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Cerrar sesion</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     </header>
     <main class="container">
+      <h1 class="mt-5 text-warning">Cuentas de usuarios</h1>
       <div class="d-flex justify-content-between">
-        <h1>Lista de cuentas</h1>
+        <h2>Lista de cuentas</h2>
         <button class="btn btn-primary" id="btnRegistro">Registrarse</button>
       </div>
       <section class="table-responsive">
@@ -86,7 +151,10 @@
                   placeholder="Ruli15"
                 />
                 <div class="valid-feedback">Bien hecho!</div>
-                <div class="invalid-feedback">Campo incorrecto! La cantidad de caracteres debe ser entre 6 y 16</div>
+                <div class="invalid-feedback">
+                  Campo incorrecto! La cantidad de caracteres debe ser entre 6 y
+                  16
+                </div>
               </div>
               <div class="mb-3">
                 <label for="contraseña" class="form-label">Contraseña *</label>
@@ -100,7 +168,10 @@
                   placeholder="J#41g2$5a.57k"
                 />
                 <div class="valid-feedback">Bien hecho!</div>
-                <div class="invalid-feedback">Campo incorrecto! La cantidad de caracteres debe ser entre 8 y 16</div>
+                <div class="invalid-feedback">
+                  Campo incorrecto! La cantidad de caracteres debe ser entre 8 y
+                  16
+                </div>
               </div>
               <div class="mb-3">
                 <label for="recontraseña" class="form-label"
@@ -116,7 +187,10 @@
                   placeholder="J#41g2$5a.57k"
                 />
                 <div class="valid-feedback">Bien hecho!</div>
-                <div class="invalid-feedback">Campo incorrecto! La cantidad de caracteres debe ser entre 8 y 16</div>
+                <div class="invalid-feedback">
+                  Campo incorrecto! La cantidad de caracteres debe ser entre 8 y
+                  16
+                </div>
               </div>
               <div class="mb-3">
                 <label for="email" class="form-label">Email *</label>
@@ -150,7 +224,7 @@
         </div>
       </div>
     </div>
-    <footer class="text-center fs-5 bg-dark-subtle">
+    <footer class="text-center fs-5">
       <p>
         By
         <a
