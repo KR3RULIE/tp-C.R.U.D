@@ -19,6 +19,15 @@ const crearUsuario = () => {
     return; // Salir de la función si no coinciden
   }
 
+  if (inputChar.value === "") {
+    Swal.fire({
+      title: "¡Atención!",
+      text: "Olvidaste seleecionar tu personaje favorito",
+      icon: "warning",
+    });
+    return; // Salir de la función si no coinciden
+  }
+
   //TODO: tomar los datos del formulario
 
   // con los datos voy a crear un objeto usuario
@@ -57,6 +66,11 @@ const crearUsuario = () => {
 
 const limpiarFormulario = () => {
   formularioRegistro.reset();
+  //limpiar los estilos del formulario
+  const inputs = formularioRegistro.querySelectorAll(".form-control");
+  inputs.forEach((input) => {
+    input.classList.remove("is-valid", "is-invalid");
+  });
 };
 
 const guardarLocalStorage = () => {
@@ -201,6 +215,48 @@ const editarCuenta = () => {
     icon: "success",
   });
 };
+
+// funciones de validacion
+function validarCantidadCaracteres(input, min, max) {
+  if (input.value.trim().length >= min && input.value.trim().length <= max) {
+    input.classList.add("is-valid");
+    input.classList.remove("is-invalid");
+    return true;
+  } else {
+    input.classList.add("is-invalid");
+    input.classList.remove("is-valid");
+    return false;
+  }
+}
+function validarEmail() {
+  const regExp =
+    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/;
+  if (regExp.test(inputEmail.value)) {
+    inputEmail.classList.add("is-valid");
+    inputEmail.classList.remove("is-invalid");
+    return true;
+  } else {
+    inputEmail.classList.add("is-invalid");
+    inputEmail.classList.remove("is-valid");
+    return false;
+  }
+}
+function validaciones() {
+  let datosValidos = true;
+  if (!validarCantidadCaracteres(inputIDCuenta, 2, 50)) {
+    datosValidos = false;
+  }
+
+  if (!validarCantidadCaracteres(inputContraseña, 2, 50)) {
+    datosValidos = false;
+  }
+
+  if (!validarCantidadCaracteres(inputReContraseña, 2, 50)) {
+    datosValidos = false;
+  }
+
+  return datosValidos;
+}
 
 // Variables
 const btnRegistro = document.getElementById("btnRegistro");
