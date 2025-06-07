@@ -87,7 +87,7 @@ const cargarDatosEnLaTabla = () => {
   } else {
     // si no hay datos, podrías mostrar una fila que diga "No hay cuentas registradas"
     tablaCuentas.innerHTML = `<tr>
-      <td colspan="6" class="text-center text-muted">No hay cuentas registradas.</td>
+      <td colspan="7" class="text-center text-muted">No hay cuentas registradas.</td>
     </tr>`;
   }
 };
